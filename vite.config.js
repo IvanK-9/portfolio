@@ -5,4 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: './', // Ensures relative asset paths for GitHub Pages and subpaths
+  server: {
+    host: true,
+    allowedHosts: true, // Allow external tunnel hosts like trycloudflare.com
+  },
 })
