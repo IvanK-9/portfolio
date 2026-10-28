@@ -72,7 +72,7 @@ export default function App() {
             </a>
             <div className="w-px h-4 bg-zinc-800 mx-1 hidden sm:block" />
             <a
-              href="https://github.com"
+              href="https://github.com/IvanK-9"
               target="_blank"
               rel="noopener noreferrer"
               className="p-1.5 text-zinc-400 hover:text-white hover:bg-zinc-850 rounded transition-colors duration-150"
@@ -134,7 +134,7 @@ export default function App() {
             {/* Action Buttons & Links */}
             <div className="mt-8 pt-6 border-t border-zinc-800/70 flex flex-wrap items-center gap-3">
               <a
-                href="https://github.com"
+                href="https://github.com/IvanK-9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group/btn inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-100 text-zinc-950 font-medium text-sm hover:bg-white transition-all duration-150 shadow-sm"
@@ -347,7 +347,7 @@ export default function App() {
                     </span>
                   </div>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/IvanK-9/RazorPagesCrud"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-zinc-500 hover:text-white p-1 rounded transition-colors duration-150 inline-flex items-center gap-1 text-xs font-mono"
@@ -404,7 +404,7 @@ export default function App() {
                   ))}
                 </div>
                 <a
-                  href="https://github.com"
+                  href="https://github.com/IvanK-9/RazorPagesCrud"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-mono text-zinc-400 hover:text-white transition-colors duration-150"
@@ -426,7 +426,7 @@ export default function App() {
                     </span>
                   </div>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/IvanK-9/IvanKozyrev-JavaProgramming-PhotoManager"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-zinc-500 hover:text-white p-1 rounded transition-colors duration-150 inline-flex items-center gap-1 text-xs font-mono"
@@ -483,7 +483,7 @@ export default function App() {
                   ))}
                 </div>
                 <a
-                  href="https://github.com"
+                  href="https://github.com/IvanK-9/IvanKozyrev-JavaProgramming-PhotoManager"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-mono text-zinc-400 hover:text-white transition-colors duration-150"
@@ -642,7 +642,7 @@ export default function App() {
             <span className="text-zinc-600">Stockholm, SE</span>
             <span>•</span>
             <a
-              href="https://github.com"
+              href="https://github.com/IvanK-9"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-400 hover:text-white transition-colors duration-150 flex items-center gap-1"
