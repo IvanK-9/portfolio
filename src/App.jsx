@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ArrowUpRight,
   Github,
   Mail,
+  Linkedin,
   Check,
   Copy,
   Terminal,
@@ -18,13 +19,37 @@ import {
   Film,
   MapPin,
   Calendar,
-  ExternalLink,
+  Clock,
   Code2
 } from 'lucide-react';
 
 export default function App() {
   const [copied, setCopied] = useState(false);
-  const emailAddress = "ivan.kozyrev.dev@gmail.com";
+  const [stockholmTime, setStockholmTime] = useState('');
+  const emailAddress = "ivan.kozyrev@edunord.se";
+  const linkedInUrl = "https://www.linkedin.com/in/ivankozyrev/";
+
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Europe/Stockholm',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        });
+        setStockholmTime(formatter.format(now));
+      } catch (e) {
+        setStockholmTime('CET');
+      }
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleCopyEmail = (e) => {
     e.preventDefault();
@@ -45,28 +70,32 @@ export default function App() {
             <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded border border-zinc-800 bg-zinc-900/80 text-zinc-200">
               IK // DEV
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs text-zinc-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs text-zinc-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               sys.status: nominal
+            </span>
+            <span className="hidden md:inline-flex items-center gap-1 font-mono text-xs text-zinc-400 pl-2 border-l border-zinc-800">
+              <Clock className="w-3 h-3 text-emerald-400" />
+              <span>{stockholmTime ? `${stockholmTime} CET` : 'Stockholm (CET)'}</span>
             </span>
           </div>
 
           <nav className="flex items-center gap-1 sm:gap-2">
             <a
               href="#experience"
-              className="px-2.5 py-1 text-xs font-mono text-zinc-400 hover:text-white transition-colors duration-150 rounded hover:bg-zinc-850"
+              className="px-2 sm:px-2.5 py-1 text-xs font-mono text-zinc-400 hover:text-white transition-colors duration-150 rounded hover:bg-zinc-850"
             >
               /experience
             </a>
             <a
               href="#projects"
-              className="px-2.5 py-1 text-xs font-mono text-zinc-400 hover:text-white transition-colors duration-150 rounded hover:bg-zinc-850"
+              className="px-2 sm:px-2.5 py-1 text-xs font-mono text-zinc-400 hover:text-white transition-colors duration-150 rounded hover:bg-zinc-850"
             >
               /projects
             </a>
             <a
               href="#vibe"
-              className="px-2.5 py-1 text-xs font-mono text-zinc-400 hover:text-white transition-colors duration-150 rounded hover:bg-zinc-850"
+              className="px-2 sm:px-2.5 py-1 text-xs font-mono text-zinc-400 hover:text-white transition-colors duration-150 rounded hover:bg-zinc-850"
             >
               /vibe
             </a>
@@ -79,6 +108,15 @@ export default function App() {
               aria-label="GitHub Profile"
             >
               <Github className="w-4 h-4" />
+            </a>
+            <a
+              href={linkedInUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 text-zinc-400 hover:text-[#0a66c2] hover:bg-zinc-850 rounded transition-colors duration-150"
+              aria-label="LinkedIn Profile"
+            >
+              <Linkedin className="w-4 h-4" />
             </a>
             <a
               href={`mailto:${emailAddress}`}
@@ -107,8 +145,8 @@ export default function App() {
 
             <div>
               {/* Availability Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-mono mb-6">
-                <span className="relative flex h-2 w-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl sm:rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-mono mb-6 max-w-full flex-wrap">
+                <span className="relative flex h-2 w-2 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
                 </span>
@@ -145,6 +183,17 @@ export default function App() {
               </a>
 
               <a
+                href={linkedInUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/btn inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-200 hover:text-white hover:border-zinc-700 text-sm font-medium transition-colors duration-150"
+              >
+                <Linkedin className="w-4 h-4 text-[#0a66c2] group-hover/btn:text-white transition-colors duration-150" />
+                <span>LinkedIn</span>
+                <ArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-150" />
+              </a>
+
+              <a
                 href={`mailto:${emailAddress}`}
                 className="group/btn inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-200 hover:text-white hover:border-zinc-700 text-sm font-medium transition-colors duration-150"
               >
@@ -161,11 +210,11 @@ export default function App() {
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Copied to clipboard</span>
+                    <span className="text-emerald-400 font-mono">Copied to clipboard</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-zinc-500" />
+                    <Copy className="w-3.5 h-3.5 text-zinc-400" />
                     <span>Copy email</span>
                   </>
                 )}
@@ -177,11 +226,11 @@ export default function App() {
           <div className="lg:col-span-4 p-6 sm:p-7 rounded-2xl bg-[#121417]/90 border border-zinc-800/80 hover:border-zinc-700 transition-colors duration-150 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-800/80">
-                <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest flex items-center gap-1.5">
-                  <Cpu className="w-3.5 h-3.5 text-zinc-400" />
+                <span className="font-mono text-xs text-zinc-400 uppercase tracking-widest flex items-center gap-1.5">
+                  <Cpu className="w-3.5 h-3.5 text-zinc-300" />
                   ENGINEERING_SPECS.CFG
                 </span>
-                <span className="w-2 h-2 rounded-full bg-emerald-400/80" />
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
               </div>
 
               <div className="space-y-4">
@@ -211,8 +260,11 @@ export default function App() {
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-zinc-500">
-              <span>LOC: STOCKHOLM / HYBRID</span>
+            <div className="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-zinc-400">
+              <span className="flex items-center gap-1">
+                <MapPin className="w-3 h-3 text-emerald-400" />
+                STOCKHOLM / HYBRID
+              </span>
               <span>LIA: 2027</span>
             </div>
           </div>
@@ -242,7 +294,7 @@ export default function App() {
                     <Calendar className="w-3 h-3" />
                     2025 — PRESENT
                   </span>
-                  <span className="font-mono text-xs text-zinc-500">TRAINEESHIP</span>
+                  <span className="font-mono text-xs text-zinc-400">TRAINEESHIP</span>
                 </div>
 
                 <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-emerald-300 transition-colors duration-150">
@@ -284,7 +336,7 @@ export default function App() {
                     <ShieldCheck className="w-3 h-3 text-zinc-400" />
                     PREVIOUS
                   </span>
-                  <span className="font-mono text-xs text-zinc-500">INDUSTRIAL SYSTEMS</span>
+                  <span className="font-mono text-xs text-zinc-400">INDUSTRIAL SYSTEMS</span>
                 </div>
 
                 <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-zinc-200 transition-colors duration-150">
@@ -350,7 +402,7 @@ export default function App() {
                     href="https://github.com/IvanK-9/RazorPagesCrud"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-white p-1 rounded transition-colors duration-150 inline-flex items-center gap-1 text-xs font-mono"
+                    className="text-zinc-400 hover:text-white p-1 rounded transition-colors duration-150 inline-flex items-center gap-1 text-xs font-mono"
                     aria-label="View Enterprise CRUD System repository"
                   >
                     <Github className="w-3.5 h-3.5" />
@@ -368,7 +420,7 @@ export default function App() {
 
                 {/* Technical Specifications */}
                 <div className="space-y-2 mb-6">
-                  <div className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-1">
+                  <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">
                     System Highlights
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-xs font-mono">
@@ -429,7 +481,7 @@ export default function App() {
                     href="https://github.com/IvanK-9/IvanKozyrev-JavaProgramming-PhotoManager"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-white p-1 rounded transition-colors duration-150 inline-flex items-center gap-1 text-xs font-mono"
+                    className="text-zinc-400 hover:text-white p-1 rounded transition-colors duration-150 inline-flex items-center gap-1 text-xs font-mono"
                     aria-label="View PhotoManager repository"
                   >
                     <Github className="w-3.5 h-3.5" />
@@ -447,7 +499,7 @@ export default function App() {
 
                 {/* Technical Specifications */}
                 <div className="space-y-2 mb-6">
-                  <div className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-1">
+                  <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">
                     System Highlights
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-xs font-mono">
@@ -512,7 +564,7 @@ export default function App() {
                   OFF-DUTY INTERESTS & VIBE
                 </span>
               </div>
-              <span className="font-mono text-xs text-zinc-500">HUMAN_CONTEXT</span>
+              <span className="font-mono text-xs text-zinc-400">HUMAN_CONTEXT</span>
             </div>
 
             <p className="text-sm text-zinc-400 mb-5">
@@ -529,7 +581,7 @@ export default function App() {
                 <div>
                   <h4 className="text-sm font-semibold text-white">Photography</h4>
                   <p className="text-xs font-mono text-zinc-400 mt-0.5">Concerts / Stage</p>
-                  <p className="text-xs text-zinc-500 mt-1">High-energy live lighting, dynamic compositions, timing.</p>
+                  <p className="text-xs text-zinc-400 mt-1">High-energy live lighting, dynamic compositions, timing.</p>
                 </div>
               </div>
 
@@ -541,7 +593,7 @@ export default function App() {
                 <div>
                   <h4 className="text-sm font-semibold text-white">Music</h4>
                   <p className="text-xs font-mono text-zinc-400 mt-0.5">Guitar / 90s Metal</p>
-                  <p className="text-xs text-zinc-500 mt-1">Precision riffs, timing, technical tone crafting.</p>
+                  <p className="text-xs text-zinc-400 mt-1">Precision riffs, timing, technical tone crafting.</p>
                 </div>
               </div>
 
@@ -553,7 +605,7 @@ export default function App() {
                 <div>
                   <h4 className="text-sm font-semibold text-white">Botany</h4>
                   <p className="text-xs font-mono text-zinc-400 mt-0.5">Houseplants</p>
-                  <p className="text-xs text-zinc-500 mt-1">Systematic care routines, humidity and growth tracking.</p>
+                  <p className="text-xs text-zinc-400 mt-1">Systematic care routines, humidity and growth tracking.</p>
                 </div>
               </div>
 
@@ -565,7 +617,7 @@ export default function App() {
                 <div>
                   <h4 className="text-sm font-semibold text-white">Cinema</h4>
                   <p className="text-xs font-mono text-zinc-400 mt-0.5">Cinematography & Directing</p>
-                  <p className="text-xs text-zinc-500 mt-1">Visual pacing, color theory, classic & modern narratives.</p>
+                  <p className="text-xs text-zinc-400 mt-1">Visual pacing, color theory, classic & modern narratives.</p>
                 </div>
               </div>
 
@@ -576,11 +628,14 @@ export default function App() {
           <div className="lg:col-span-4 p-6 sm:p-7 rounded-2xl bg-[#121417]/90 border border-zinc-800/80 hover:border-zinc-700 transition-colors duration-150 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-800/80">
-                <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest flex items-center gap-1.5">
+                <span className="font-mono text-xs text-zinc-400 uppercase tracking-widest flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-                  DISPATCH / CONTACT
+                  DISPATCH // STOCKHOLM
                 </span>
-                <span className="font-mono text-xs text-emerald-400">ONLINE</span>
+                <span className="inline-flex items-center gap-1.5 font-mono text-[11px] px-2 py-0.5 rounded bg-emerald-950/50 border border-emerald-500/30 text-emerald-300">
+                  <Clock className="w-3 h-3 text-emerald-400" />
+                  <span>{stockholmTime ? `${stockholmTime} CET` : 'CET / UTC+1'}</span>
+                </span>
               </div>
 
               <h3 className="text-lg font-bold text-white mb-2">
@@ -591,12 +646,28 @@ export default function App() {
                 Available for software engineering roles in Stockholm or hybrid arrangements. Always interested in talking clean architecture, backend scaling, and dependable systems.
               </p>
 
-              <div className="p-3 rounded-lg bg-zinc-900/80 border border-zinc-800 font-mono text-xs text-zinc-300 break-all mb-4">
+              <div className="p-2.5 rounded-lg bg-zinc-900/60 border border-zinc-800/80 font-mono text-xs text-zinc-400 mb-4 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+                <span>LOC: Stockholm, Sweden (CET / UTC+1)</span>
+              </div>
+
+              <div className="p-3 rounded-lg bg-zinc-900/80 border border-zinc-800 font-mono text-xs text-zinc-200 break-all mb-4">
                 {emailAddress}
               </div>
             </div>
 
             <div className="space-y-2">
+              <a
+                href={linkedInUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#0a66c2]/10 border border-[#0a66c2]/30 text-sky-300 hover:bg-[#0a66c2]/20 font-mono text-xs transition-colors duration-150"
+              >
+                <Linkedin className="w-3.5 h-3.5 text-[#0a66c2]" />
+                <span>Connect on LinkedIn</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+
               <button
                 onClick={handleCopyEmail}
                 className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20 font-mono text-xs transition-colors duration-150"
@@ -631,15 +702,15 @@ export default function App() {
 
       {/* Swiss Minimalist Engineering Footer */}
       <footer className="relative z-10 border-t border-zinc-800/80 mt-12 bg-[#0c0d0e]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
           <div className="flex items-center gap-2">
-            <span className="text-zinc-400 font-medium">Ivan Kozyrev</span>
+            <span className="text-zinc-300 font-medium">Ivan Kozyrev</span>
             <span>—</span>
             <span>Backend & Enterprise Developer</span>
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="text-zinc-600">Stockholm, SE</span>
+            <span className="text-zinc-500">Stockholm, SE</span>
             <span>•</span>
             <a
               href="https://github.com/IvanK-9"
@@ -649,6 +720,16 @@ export default function App() {
             >
               <Github className="w-3.5 h-3.5" />
               <span>GitHub</span>
+            </a>
+            <span>•</span>
+            <a
+              href={linkedInUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-[#0a66c2] transition-colors duration-150 flex items-center gap-1"
+            >
+              <Linkedin className="w-3.5 h-3.5" />
+              <span>LinkedIn</span>
             </a>
             <span>•</span>
             <a

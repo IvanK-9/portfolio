@@ -13,6 +13,9 @@ export default {
           subtle: '#181a1f',
           muted: '#1f2228',
         },
+        zinc: {
+          850: '#1b1d21',
+        },
       },
       fontFamily: {
         sans: [
